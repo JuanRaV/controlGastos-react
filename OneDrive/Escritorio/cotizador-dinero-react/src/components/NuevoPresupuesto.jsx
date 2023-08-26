@@ -31,7 +31,7 @@ const NuevoPresupuesto = ({
                 type="text" 
                 placeholder='Anade tu Presupuesto'
                 value={presupuesto}
-                onChange={e=>setPresupuesto(e.target.value)}
+                onChange={e=>setPresupuesto(Number(e.target.value))}
             />
         </div>
         <input type="submit" value="Anadir" />
