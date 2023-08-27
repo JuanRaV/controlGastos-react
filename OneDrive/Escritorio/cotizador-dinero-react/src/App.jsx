@@ -1,7 +1,12 @@
 import { useState } from 'react'
 import Header from './components/Header'
-import IconoNuevoGasto from './img/nuevo-gasto.svg'
+import ListadoGastos from './components/ListadoGastos'
 import Modal from './components/Modal'
+import IconoNuevoGasto from './img/nuevo-gasto.svg'
+import { generarId } from './helpers'
+
+
+
 
 function App() {
   const [presupuesto,setPresupuesto] = useState(0)
@@ -9,6 +14,8 @@ function App() {
 
   const [modal,setModal] = useState(false)
   const [animarModal,setAnimarModal] = useState(false)
+
+  const[gastos,setGastos] = useState([])
 
 
   const handleNuevoGasto =()=>{
@@ -18,8 +25,19 @@ function App() {
     },500)
   }
 
+  const guardarGasto = gasto=>{
+    gasto.id= generarId()
+    gasto.fecha = Date.now()
+    setGastos([...gastos,gasto])
+    //Cerramos el modal 
+    setAnimarModal(false)
+    setTimeout(()=>{
+        setModal(false)
+    },500)
+  }
+
   return (
-      <div>
+      <div className={modal?'fijar':''}>
         <Header
           presupuesto = {presupuesto}
           setPresupuesto = {setPresupuesto}
@@ -27,13 +45,21 @@ function App() {
           setIsValidPresupuesto={setIsValidPresupuesto}
         />
         {isValidPresupuesto && (
-          <div className='nuevo-gasto'>
-          <img 
-            src={IconoNuevoGasto} 
-            alt="icono nuevo gasto"
-            onClick={handleNuevoGasto}
-          />
-          </div>
+          <>
+          <main>
+            <ListadoGastos
+              gastos = {gastos}  
+            />
+          </main>
+            <div className='nuevo-gasto'>
+              <img 
+                src={IconoNuevoGasto} 
+                alt="icono nuevo gasto"
+                onClick={handleNuevoGasto}
+              />
+            </div>
+          </>
+
         )}
 
         {modal && 
@@ -41,6 +67,7 @@ function App() {
             setModal = {setModal}
             animarModal = {animarModal}
             setAnimarModal = {setAnimarModal}
+            guardarGasto={guardarGasto}
         />}
       </div>
       
