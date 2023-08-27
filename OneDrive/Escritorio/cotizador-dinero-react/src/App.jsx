@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import Header from './components/Header'
 import ListadoGastos from './components/ListadoGastos'
 import Modal from './components/Modal'
@@ -15,7 +15,22 @@ function App() {
   const [modal,setModal] = useState(false)
   const [animarModal,setAnimarModal] = useState(false)
 
+  const [gastoEditar,setGastoEditar] = useState({})
+  // const [gastoEliminar,setGastoEliminar] = useState()
+
+  useEffect(()=>{
+    //Esperamos hasta que se quiera editar un gasto se ejectuta el effect
+    if(Object.keys(gastoEditar).length>0){
+      setModal(true)
+      setTimeout(()=>{
+          setAnimarModal(true)
+      },500)
+    } 
+  },[gastoEditar])
+
   const handleNuevoGasto =()=>{
+    //Reiniciamos el objeto de editar para que no aparezca cuando querramos crear un nuevo gasto
+    setGastoEditar({})
     setModal(true)
     setTimeout(()=>{
         setAnimarModal(true)
@@ -46,7 +61,8 @@ function App() {
           <>
           <main>
             <ListadoGastos
-              gastos = {gastos}  
+              gastos = {gastos}
+              setGastoEditar={setGastoEditar}
             />
           </main>
             <div className='nuevo-gasto'>
@@ -66,6 +82,7 @@ function App() {
             animarModal = {animarModal}
             setAnimarModal = {setAnimarModal}
             guardarGasto={guardarGasto}
+            gastoEditar={gastoEditar}
         />}
       </div>
       
