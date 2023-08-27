@@ -5,9 +5,6 @@ import Modal from './components/Modal'
 import IconoNuevoGasto from './img/nuevo-gasto.svg'
 import { generarId } from './helpers'
 
-
-
-
 function App() {
 
   const[gastos,setGastos] = useState([])
