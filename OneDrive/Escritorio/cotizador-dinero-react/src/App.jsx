@@ -13,7 +13,7 @@ function App() {
   const [modal,setModal] = useState(false)
   const [animarModal,setAnimarModal] = useState(false)
   const [gastoEditar,setGastoEditar] = useState({})
-  // const [gastoEliminar,setGastoEliminar] = useState()
+
 
   useEffect(()=>{
     //Esperamos hasta que se quiera editar un gasto se ejectuta el effect
@@ -39,8 +39,8 @@ function App() {
     if(gasto.id){
       //Actualizamos 
       const gastoActualizado = gastos.map(gastoState=>gastoState.id===gasto.id?gasto:gastoState)
-
       setGastos(gastoActualizado)
+      setGastoEditar({})
     }else{
       //Nuevo gasto
       gasto.id= generarId()
@@ -97,6 +97,7 @@ function App() {
             setAnimarModal = {setAnimarModal}
             guardarGasto={guardarGasto}
             gastoEditar={gastoEditar}
+            setGastoEditar={setGastoEditar}
         />}
       </div>
       
