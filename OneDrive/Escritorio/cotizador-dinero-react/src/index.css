@@ -207,7 +207,7 @@ header h1 {
 }
 .contenido-presupuesto p.negativo,
 .contenido-presupuesto p.negativo span {
-    color: red;
+    color: #BD1515 ;
 }
 .contenido-presupuesto span {
     font-weight: 900;
@@ -215,7 +215,7 @@ header h1 {
 }
 .reset-app {
     border: none;
-    background-color: #db2777;
+    background-color: #DCBE1B;
     padding: 1rem;
     width: 100%;
     text-align: center;
@@ -227,7 +227,7 @@ header h1 {
     transition-duration: 300ms;
 }
 .reset-app:hover {
-    background-color: #c71465;
+    background-color: #B9A223;
     cursor: pointer;
 }
 

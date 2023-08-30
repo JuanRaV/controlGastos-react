@@ -2,7 +2,13 @@ import { useState,useEffect } from "react"
 import { CircularProgressbar,buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
-const ControlPresupuesto = ({gastos,presupuesto}) => {
+const ControlPresupuesto = ({
+        gastos,
+        setGastos,
+        presupuesto,
+        setPresupuesto,
+        setIsValidPresupuesto
+    }) => {
 
     const [porcentaje,setPorcentaje] = useState(0)
     const [disponible,setDisponible] = useState(0)
@@ -32,6 +38,17 @@ const ControlPresupuesto = ({gastos,presupuesto}) => {
             currency:'USD'
         })
     }
+
+    //Funcion para reiniciar todo
+    const hanldeResetApp=()=>{
+        const resultado = confirm('Estas seguro de resetear app?')
+        if(resultado){
+            setGastos([])
+            setPresupuesto(0)
+            setIsValidPresupuesto(false)
+        }
+    }
+
   return (
     <div className='contenedor-presupuesto contenedor sombra dos-columnas'>
         <div>
@@ -40,18 +57,25 @@ const ControlPresupuesto = ({gastos,presupuesto}) => {
                 //Configuracion de la grafica
                 text={`${porcentaje}%`}
                 styles={buildStyles({
-                    pathColor: '#1BC090',
+                    pathColor: porcentaje>100?'#BD1515': '#1BC090',
                     trailColor:'#B7E7D9',
-                    textColor: '#1BC090'
+                    textColor: porcentaje>100?'#BD1515': '#1BC090'
                 })}
                 
             />
         </div>
         <div className='contenido-presupuesto'>
+            <button 
+                className="reset-app" 
+                type="button"
+                onClick={hanldeResetApp}
+            >
+                Reset App
+            </button>
             <p>
                 <span>Presupuesto: </span> {formatearPrecio(presupuesto)}
             </p>
-            <p>
+            <p className={`${disponible<0?'negativo':''}`}>
                 <span>Disponible: </span> {formatearPrecio(disponible)}
             </p>
             <p>
