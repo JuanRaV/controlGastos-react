@@ -8,13 +8,10 @@ import { generarId } from './helpers'
 function App() {
 
   const[gastos,setGastos] = useState([])
-
   const [presupuesto,setPresupuesto] = useState(0)
   const [isValidPresupuesto,setIsValidPresupuesto] = useState(false)
-
   const [modal,setModal] = useState(false)
   const [animarModal,setAnimarModal] = useState(false)
-
   const [gastoEditar,setGastoEditar] = useState({})
   // const [gastoEliminar,setGastoEliminar] = useState()
 
@@ -38,14 +35,26 @@ function App() {
   }
 
   const guardarGasto = gasto=>{
-    gasto.id= generarId()
-    gasto.fecha = Date.now()
-    setGastos([...gastos,gasto])
+    console.log(gasto)
+    if(gasto.id){
+      //Actualizamos 
+      const gastoActualizado = gastos.map(gastoState=>gastoState.id===gasto.id?gasto:gastoState)
+
+      setGastos(gastoActualizado)
+    }else{
+      //Nuevo gasto
+      gasto.id= generarId()
+      gasto.fecha = Date.now()
+      setGastos([...gastos,gasto])
+    }
+
+
     //Cerramos el modal 
     setAnimarModal(false)
     setTimeout(()=>{
         setModal(false)
     },500)
+    console.log(gasto)
   }
 
   return (

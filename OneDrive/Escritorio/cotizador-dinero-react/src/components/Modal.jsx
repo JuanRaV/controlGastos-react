@@ -13,6 +13,8 @@ const Modal = ({
     const [nombre,setNombre] = useState('')
     const [cantidad,setCantidad] = useState('')
     const [categoria,setCategoria] = useState('')
+    const[fecha,setFecha] = useState('')
+    const [id,setId] = useState('')
 
     //Llenamos el modal cuando estemos editando el ofecto
     useEffect(()=>{
@@ -20,6 +22,8 @@ const Modal = ({
             setNombre(gastoEditar.nombre)
             setCantidad(gastoEditar.cantidad)
             setCategoria(gastoEditar.categoria)
+            setFecha(gastoEditar.fecha)
+            setId(gastoEditar.id)
         }
     },[])
 
@@ -41,7 +45,7 @@ const Modal = ({
             },3000)
             return
         }
-        guardarGasto({nombre,cantidad,categoria})
+        guardarGasto({nombre,cantidad,categoria,id,fecha})
             
     }
   return (
